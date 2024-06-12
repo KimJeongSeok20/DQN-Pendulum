@@ -25,7 +25,7 @@ class DQNAgent:
         # DQN 하이퍼파라미터
         self.discount_factor = 0.99
         self.learning_rate = 0.001
-        self.epsilon = 0.4
+        self.epsilon = 0
         self.epsilon_decay = 0.999
         self.epsilon_min = 0.01
         self.batch_size = 64
@@ -42,7 +42,7 @@ class DQNAgent:
         self.update_target_model()
 
         if self.load_model:
-            self.model.load_weights("./save_model/dqn.h5")
+            self.model.load_weights("./save_model/dqn(1).h5")
     # 상태가 입력, 큐함수가 출력인 인공신경망 생성
     def build_model(self):
         model = Sequential()
@@ -163,6 +163,6 @@ if __name__ == "__main__":
                       len(agent.memory), "  epsilon:", agent.epsilon)
 
                 # 이전 10개 에피소드의 점수 평균이 -500보다 크면 학습 중단
-                if np.mean(scores[-min(10, len(scores)):]) > -400:
-                    agent.model.save_weights("./save_model/dqn(1).h5")
+                if np.mean(scores[-min(10, len(scores)):]) > 0:
+                    agent.model.save_weights("./save_model/dqn(2).h5")
                     sys.exit()
